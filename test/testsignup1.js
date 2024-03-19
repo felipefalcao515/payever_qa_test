@@ -1,23 +1,35 @@
 const { Builder, By, Key, until } = require("selenium-webdriver");
+const BasePage = require("../Page Object/basepage")
 
 //1. Test {value} = fashion, perform step 1 with value "fashion".
 //2. After step 7, validate the apps to be present on the dashboard.
 //3.Dashboard contents:
 //- Transactions, Checkout, Connect, Products, Shop, Message, settings
 
+describe('Singup Test', async () => {
+        beforeall(async () => {
+                //Launch the firefox browser.
+                driver = await new Builder().forBrowser("firefox").build();
+                page = new BasePage();
+        });
+        afterall(async () => {
+                //Close the browser
+                await driver.quit();
+        });
+        page.fashionUrl();
 
-//Sest case 1: check the /fashion path, register a user "test" and check the dashboard contents.
-async function testcase1(){
-    //Launch the firefox browser.
-    let driver = await new Builder().forBrowser("firefox").build();
+        
+});
+
+//Test case 1: check the /fashion path, register a user "test" and check the dashboard contents.
 
 //Step1: open the url in the path /fashion.
     try{
         //Open url.
-        await driver.get("https://commerceos.staging.devpayever.com/registration/fashion")
+        await driver.get("https://commerceos.staging.devpayever.com/registration/fashion");
 
 //Step2: Find and fill the "name" and "last name" field.
-        //Oait for the element to be loaded in DOM.
+        //Wait for the element to be loaded in DOM.
         await driver.wait(until.elementLocated(By.css('input[formControlName="firstName"]')), 5000);
         //Finds the input element for field "name".
         const inputNameElement = await driver.findElement(By.css('input[formControlName="firstName"]'));
@@ -141,8 +153,7 @@ async function testcase1(){
         const SettingsXpathExpression = `//*[contains(text(), '${Settings}')]`;
         //Find the input element for field "confirm password".
         await driver.findElement(By.xpath(SettingsXpathExpression));
-
     }finally{
+
     }
-}
 testcase1()
